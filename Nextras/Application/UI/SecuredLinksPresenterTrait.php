@@ -8,7 +8,7 @@
  * @author     Jan Skrasek
  */
 
-namespace Nextras\Application;
+namespace Nextras\Application\UI;
 
 use Nette;
 use Nette\Application\UI\PresenterComponentReflection;

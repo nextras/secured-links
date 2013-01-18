@@ -15,7 +15,7 @@ $ composer require nextras/application
 ```php
 class BasePrenseter extends Nette\Application\UI\Presenter
 {
-	use Nextras\Application\SecuredLinksPresenterTrait;
+	use Nextras\Application\UI\SecuredLinksPresenterTrait;
 }
 
 
@@ -32,7 +32,7 @@ class MyPresenter extends BasePresenter
 
 class BaseControl extends Nette\Application\UI\Control
 {
-	use Nextras\Application\SecuredLinksControlTrait;
+	use Nextras\Application\UI\SecuredLinksControlTrait;
 }
 
 
