@@ -1,0 +1,21 @@
+{
+	"name": "nextras/application",
+	"type": "library",
+	"description": "Tools for your presenters from Nette Framework.",
+	"keywords": ["nextras", "nette", "application", "secured"],
+	"license": ["MIT"],
+	"authors": [
+		{
+			"name": "Jan Skrasek",
+			"email": "hrach.cz@gmail.com",
+			"homepage": "http://jan.skrasek.com"
+		}
+	],
+	"require": {
+		"php": ">=5.4.0",
+		"nette/nette": ">=2.0.0"
+	},
+	"autoload": {
+		"psr-0": { "Nextras\\Application": "" }
+	}
+}
