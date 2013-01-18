@@ -1,8 +1,8 @@
 {
 	"name": "nextras/application",
 	"type": "library",
-	"description": "Tools for your presenters from Nette Framework.",
-	"keywords": ["nextras", "nette", "application", "secured"],
+	"description": "Tools for your presenters and controls of Nette Framework.",
+	"keywords": ["nextras", "nette", "application", "secured signals"],
 	"license": ["MIT"],
 	"authors": [
 		{
