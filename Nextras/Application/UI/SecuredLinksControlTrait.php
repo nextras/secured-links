@@ -27,8 +27,8 @@ trait SecuredLinksControlTrait
 			array_shift($args);
 		}
 
-		list($destination, $args) = $this->getPresenter()->createSecuredRequest($this, $destination, $args);
-		return parent::link($destination, $args);
+		$link = parent::link($destination, $args);
+		return $this->getPresenter()->createSecuredLink($this, $link, $destination);
 	}
 
 
@@ -44,7 +44,7 @@ trait SecuredLinksControlTrait
 		$method = $this->formatSignalMethod($signal);
 		$reflection = new Nette\Reflection\Method($this, $method);
 		if ($reflection->hasAnnotation('secured')) {
-			$params = array();
+			$params = array($this->getUniqueId());
 			if ($this->params) {
 				foreach ($reflection->getParameters() as $param) {
 					if (isset($this->params[$param->name])) {
@@ -52,6 +52,7 @@ trait SecuredLinksControlTrait
 					}
 				}
 			}
+
 			if (!isset($this->params['_sec']) || $this->params['_sec'] !== $this->getPresenter()->getCsrfToken(get_class($this), $method, $params)) {
 				throw new Nette\Application\UI\BadSignalException("Invalid security token for signal '$signal' in class {$this->reflection->name}.");
 			}
