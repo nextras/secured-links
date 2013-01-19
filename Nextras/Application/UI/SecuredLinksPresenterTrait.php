@@ -41,10 +41,10 @@ trait SecuredLinksPresenterTrait
 				$destination = substr($destination, 0, $pos);
 			}
 
-			$signal = rtrim($destination, '!');
-			$a = strrpos($signal, ':');
+			$signal = strtr(rtrim($destination, '!'), ':', '-');
+			$a = strrpos($signal, '-');
 			if ($a !== FALSE) {
-				$component = $component->getComponent(strtr(substr($signal, 0, $a), ':', '-'));
+				$component = $component->getComponent(substr($signal, 0, $a));
 				$signal = (string) substr($signal, $a + 1);
 			}
 			if ($signal == NULL) { // intentionally ==
