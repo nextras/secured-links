@@ -11,7 +11,7 @@
 namespace Nextras\Application\UI;
 
 use Nette;
-use Nette\Application\UI\PresenterComponentReflection;
+use Nette\Application\UI\PresenterComponent;
 
 
 
@@ -21,8 +21,14 @@ trait SecuredLinksPresenterTrait
 	use SecuredLinksControlTrait;
 
 
-
-	public function createSecuredLink($component, $link, $destination)
+	/**
+	 * @param  PresenterComponent
+	 * @param  string created URL
+	 * @param  string
+	 * @return string
+	 * @throws InvalidLinkException
+	 */
+	public function createSecuredLink(PresenterComponent $component, $link, $destination)
 	{
 		/** @var $lastRequest Nette\Application\Request */
 		$lastRequest = $this->lastCreatedRequest;
@@ -51,12 +57,12 @@ trait SecuredLinksPresenterTrait
 				throw new InvalidLinkException("Signal must be non-empty string.");
 			}
 
-			// only PresenterComponent - is it really needed?
-			if (!$component instanceof Nette\Application\UI\PresenterComponent) {
+			// only PresenterComponent
+			if (!$component instanceof PresenterComponent) {
 				break;
 			}
 
-			$reflection = new PresenterComponentReflection(get_class($component));
+			$reflection = $component->getReflection();
 			$method = $component->formatSignalMethod($signal);
 			$signalReflection = $reflection->getMethod($method);
 
@@ -81,7 +87,7 @@ trait SecuredLinksPresenterTrait
 				$link = substr($link, 0, $pos);
 			}
 
-			// link already contain do param
+			// link already contains 'do' parameter
 			$link .= '&' . $component->getParameterId('_sec') . '=' . $protectedParam . $fragment;
 			break;
 		}
@@ -100,7 +106,7 @@ trait SecuredLinksPresenterTrait
 	 */
 	public function getCsrfToken($control, $method, $params)
 	{
-		$session = $this->getSession('Nette.Application.UI.Presenter/CSRF');
+		$session = $this->getSession('Nextras.Application.UI.SecuredLinksPresenterTrait');
 		if (!isset($session->token)) {
 			$session->token = Nette\Utils\Strings::random();
 		}

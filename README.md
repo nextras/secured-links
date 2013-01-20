@@ -13,7 +13,7 @@ $ composer require nextras/application
 ## Usage of SecuredLinksTrait
 
 ```php
-class BasePrenseter extends Nette\Application\UI\Presenter
+abstract class BasePrenseter extends Nette\Application\UI\Presenter
 {
 	use Nextras\Application\UI\SecuredLinksPresenterTrait;
 }
@@ -30,7 +30,7 @@ class MyPresenter extends BasePresenter
 }
 
 
-class BaseControl extends Nette\Application\UI\Control
+abstract class BaseControl extends Nette\Application\UI\Control
 {
 	use Nextras\Application\UI\SecuredLinksControlTrait;
 }

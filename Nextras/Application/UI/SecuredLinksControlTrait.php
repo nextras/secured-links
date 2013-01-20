@@ -36,7 +36,7 @@ trait SecuredLinksControlTrait
 	/**
 	 * For @secured annotated signal handler methods checks if URL parameters has not been changed
 	 *
-	 * @throws Nette\Application\UI\BadSignalException if there is not handler method or security token does not match
+	 * @throws Nette\Application\UI\BadSignalException if there is no handler method or the security token does not match
 	 * @throws \LogicException if there is no redirect in a secured signal
 	 */
 	public function signalReceived($signal)
