@@ -37,7 +37,7 @@ trait SecuredLinksControlTrait
 	 * For @secured annotated signal handler methods checks if URL parameters has not been changed
 	 *
 	 * @throws Nette\Application\UI\BadSignalException if there is not handler method or security token does not match
-	 * @throws \RuntimeException if there is no redirect in a secured signal
+	 * @throws \LogicException if there is no redirect in a secured signal
 	 */
 	public function signalReceived($signal)
 	{
@@ -61,7 +61,7 @@ trait SecuredLinksControlTrait
 		parent::signalReceived($signal);
 
 		if (isset($this->params['_sec'])) {
-			throw new \RuntimeException("Secured signal '$signal' did not redirect. Possible csrf-token reveal by http referer header.");
+			throw new \LogicException("Secured signal '$signal' did not redirect. Possible csrf-token reveal by http referer header.");
 		}
 	}
 
