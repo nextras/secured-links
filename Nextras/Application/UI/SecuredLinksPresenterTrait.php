@@ -54,7 +54,7 @@ trait SecuredLinksPresenterTrait
 				$signal = (string) substr($signal, $a + 1);
 			}
 			if ($signal == NULL) { // intentionally ==
-				throw new InvalidLinkException("Signal must be non-empty string.");
+				throw new Nette\Application\UI\InvalidLinkException("Signal must be non-empty string.");
 			}
 
 			// only PresenterComponent
