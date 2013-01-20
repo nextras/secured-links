@@ -26,7 +26,7 @@ trait SecuredLinksPresenterTrait
 	 * @param  string created URL
 	 * @param  string
 	 * @return string
-	 * @throws InvalidLinkException
+	 * @throws Nette\Application\UI\InvalidLinkException
 	 */
 	public function createSecuredLink(PresenterComponent $component, $link, $destination)
 	{
