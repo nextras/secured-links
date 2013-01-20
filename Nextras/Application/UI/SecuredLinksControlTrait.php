@@ -42,25 +42,30 @@ trait SecuredLinksControlTrait
 	public function signalReceived($signal)
 	{
 		$method = $this->formatSignalMethod($signal);
-		$reflection = new Nette\Reflection\Method($this, $method);
-		if ($reflection->hasAnnotation('secured')) {
-			$params = array($this->getUniqueId());
-			if ($this->params) {
-				foreach ($reflection->getParameters() as $param) {
-					if (isset($this->params[$param->name])) {
-						$params[$param->name] = $this->params[$param->name];
+		$secured = FALSE;
+
+		if (method_exists($this, $method)) {
+			$reflection = new Nette\Reflection\Method($this, $method);
+			$secured = $reflection->hasAnnotation('secured');
+			if ($secured) {
+				$params = array($this->getUniqueId());
+				if ($this->params) {
+					foreach ($reflection->getParameters() as $param) {
+						if (isset($this->params[$param->name])) {
+							$params[$param->name] = $this->params[$param->name];
+						}
 					}
 				}
-			}
 
-			if (!isset($this->params['_sec']) || $this->params['_sec'] !== $this->getPresenter()->getCsrfToken(get_class($this), $method, $params)) {
-				throw new Nette\Application\UI\BadSignalException("Invalid security token for signal '$signal' in class {$this->reflection->name}.");
+				if (!isset($this->params['_sec']) || $this->params['_sec'] !== $this->getPresenter()->getCsrfToken(get_class($this), $method, $params)) {
+					throw new Nette\Application\UI\BadSignalException("Invalid security token for signal '$signal' in class {$this->reflection->name}.");
+				}
 			}
 		}
 
 		parent::signalReceived($signal);
 
-		if (isset($this->params['_sec'])) {
+		if ($secured) {
 			throw new \LogicException("Secured signal '$signal' did not redirect. Possible csrf-token reveal by http referer header.");
 		}
 	}
