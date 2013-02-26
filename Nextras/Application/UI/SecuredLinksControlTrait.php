@@ -51,6 +51,9 @@ trait SecuredLinksControlTrait
 				$params = array($this->getUniqueId());
 				if ($this->params) {
 					foreach ($reflection->getParameters() as $param) {
+						if ($param->isOptional()) {
+							continue;
+						}
 						if (isset($this->params[$param->name])) {
 							$params[$param->name] = $this->params[$param->name];
 						}

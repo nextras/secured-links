@@ -73,6 +73,9 @@ trait SecuredLinksPresenterTrait
 			$origParams = $lastRequest->getParameters();
 			$protectedParams = array($component->getUniqueId());
 			foreach ($signalReflection->getParameters() as $param) {
+				if ($param->isOptional()) {
+					continue;
+				}
 				if (isset($origParams[$component->getParameterId($param->name)])) {
 					$protectedParams[$param->name] = $origParams[$component->getParameterId($param->name)];
 				}
