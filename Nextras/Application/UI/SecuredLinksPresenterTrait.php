@@ -33,7 +33,7 @@ trait SecuredLinksPresenterTrait
 		/** @var $lastRequest Nette\Application\Request */
 		$lastRequest = $this->lastCreatedRequest;
 
-		while (TRUE) {
+		do {
 			if ($lastRequest === NULL) {
 				break;
 			}
@@ -91,8 +91,7 @@ trait SecuredLinksPresenterTrait
 			}
 
 			$link .= (strpos($link, '?') !== FALSE ? '&' : '?') . $component->getParameterId('_sec') . '=' . $protectedParam . $fragment;
-			break;
-		}
+		} while (FALSE);
 
 		return $link;
 	}
