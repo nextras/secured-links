@@ -90,8 +90,7 @@ trait SecuredLinksPresenterTrait
 				$link = substr($link, 0, $pos);
 			}
 
-			// link already contains 'do' parameter
-			$link .= '&' . $component->getParameterId('_sec') . '=' . $protectedParam . $fragment;
+			$link .= (strpos($link, '?') !== FALSE ? '&' : '?') . $component->getParameterId('_sec') . '=' . $protectedParam . $fragment;
 			break;
 		}
 
