@@ -1,7 +1,7 @@
 {
-	"name": "nextras/application",
+	"name": "nextras/secured-links",
 	"type": "library",
-	"description": "Tools for your presenters and controls of Nette Framework.",
+	"description": "Package secures Nette Framework signals against CSRF attack.",
 	"keywords": ["nextras", "nette", "application", "secured signals"],
 	"license": ["MIT"],
 	"authors": [
@@ -17,5 +17,8 @@
 	},
 	"autoload": {
 		"psr-0": { "Nextras\\Application": "" }
+	},
+	"replace": {
+		"nextras/application": "self.version"
 	}
 }
