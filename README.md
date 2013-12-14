@@ -1,6 +1,7 @@
-## Nextras\Application
-List of components:
-- **SecuredLinksTrait**: creates secured signal links, **PHP 5.4+ ONLY**
+## Nextras\SecuredLinks
+
+**SecuredLinksTrait** creates secured signal links.
+**PHP 5.4+ ONLY**
 
 ## Installation
 
