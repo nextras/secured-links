@@ -13,7 +13,12 @@
 	],
 	"require": {
 		"php": ">=5.4.0",
-		"nette/nette": ">=2.0.0"
+		"nette/nette": "~2.0"
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "1.1-dev"
+		}
 	},
 	"autoload": {
 		"psr-0": { "Nextras\\Application": "" }
