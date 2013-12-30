@@ -8,7 +8,7 @@
 The best way to install is using [Composer](http://getcomposer.org/):
 
 ```sh
-$ composer require nextras/application
+$ composer require nextras/secured-links
 ```
 
 ## Usage of SecuredLinksTrait
