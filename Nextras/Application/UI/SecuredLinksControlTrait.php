@@ -68,7 +68,7 @@ trait SecuredLinksControlTrait
 
 		parent::signalReceived($signal);
 
-		if ($secured && !$this->getPresenter()->isAjax()) {
+		if ($secured && !$this->getPresenter()->isAjax() && !$this->getPresenter()->getRequest()->hasFlag(\Nette\Application\Request::RESTORED)) {
 			throw new \LogicException("Secured signal '$signal' did not redirect. Possible csrf-token reveal by http referer header.");
 		}
 	}
