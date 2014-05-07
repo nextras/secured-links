@@ -55,11 +55,16 @@ trait SecuredLinksPresenterTrait
 			$signal = strtr(rtrim($destination, '!'), ':', '-');
 			$a = strrpos($signal, '-');
 			if ($a !== FALSE) {
+				if ($component instanceof Nette\Application\UI\Presenter && substr($destination, -1) !== '!') {
+					break;
+				}
+
 				$component = $component->getComponent(substr($signal, 0, $a));
 				$signal = (string) substr($signal, $a + 1);
 			}
+
 			if ($signal == NULL) { // intentionally ==
-				throw new Nette\Application\UI\InvalidLinkException("Signal must be non-empty string.");
+				throw new Nette\Application\UI\InvalidLinkException('Signal must be non-empty string.');
 			}
 
 			// only PresenterComponent
