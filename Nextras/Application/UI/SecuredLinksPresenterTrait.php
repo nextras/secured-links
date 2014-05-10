@@ -52,6 +52,10 @@ trait SecuredLinksPresenterTrait
 				$destination = substr($destination, $a + 2);
 			}
 
+			if (strpos($destination, '!') === FALSE) {
+				break;
+			}
+
 			$signal = strtr(rtrim($destination, '!'), ':', '-');
 			$a = strrpos($signal, '-');
 			if ($a !== FALSE) {
