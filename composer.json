@@ -21,7 +21,7 @@
 		}
 	},
 	"autoload": {
-		"psr-0": { "Nextras\\Application": "" }
+		"psr-4": { "Nextras\\Application\\UI\\": "src/" }
 	},
 	"replace": {
 		"nextras/application": "self.version"
