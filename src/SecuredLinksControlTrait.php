@@ -13,7 +13,6 @@ namespace Nextras\Application\UI;
 use Nette;
 
 
-
 trait SecuredLinksControlTrait
 {
 
@@ -32,10 +31,10 @@ trait SecuredLinksControlTrait
 	}
 
 
-
 	/**
 	 * For @secured annotated signal handler methods checks if URL parameters has not been changed
 	 *
+	 * @param  string $signal
 	 * @throws Nette\Application\UI\BadSignalException if there is no handler method or the security token does not match
 	 * @throws \LogicException if there is no redirect in a secured signal
 	 */

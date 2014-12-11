@@ -14,17 +14,15 @@ use Nette;
 use Nette\Application\UI\PresenterComponent;
 
 
-
 trait SecuredLinksPresenterTrait
 {
-
 	use SecuredLinksControlTrait;
 
 
 	/**
-	 * @param  PresenterComponent
-	 * @param  string created URL
-	 * @param  string
+	 * @param  PresenterComponent $component
+	 * @param  string $link created URL
+	 * @param  string $destination
 	 * @return string
 	 * @throws Nette\Application\UI\InvalidLinkException
 	 */
@@ -107,12 +105,11 @@ trait SecuredLinksPresenterTrait
 	}
 
 
-
 	/**
 	 * Returns unique token for method and params
-	 * @param string
-	 * @param string
-	 * @param array
+	 * @param  string $control
+	 * @param  string $method
+	 * @param  array $params
 	 * @return string
 	 */
 	public function getCsrfToken($control, $method, $params)
