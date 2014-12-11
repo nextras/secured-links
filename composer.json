@@ -13,7 +13,8 @@
 	],
 	"require": {
 		"php": "~5.4",
-		"nette/application": "~2.2"
+		"nette/application": "~2.2",
+		"nette/utils": "~2.2"
 	},
 	"extra": {
 		"branch-alias": {
