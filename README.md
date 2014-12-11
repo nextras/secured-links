@@ -1,5 +1,11 @@
 ## Nextras\SecuredLinks
 
+[![Build Status](https://travis-ci.org/nextras/secured-links.svg?branch=master)](https://travis-ci.org/nextras/secured-links)
+[![Downloads this Month](https://img.shields.io/packagist/dm/nextras/secured-links.svg)](https://packagist.org/packages/nextras/secured-links)
+[![Stable version](http://img.shields.io/packagist/v/nextras/secured-links.svg)](https://packagist.org/packages/nextras/secured-links)
+[![HHVM Status](http://img.shields.io/hhvm/nextras/secured-links.svg)](http://hhvm.h4cc.de/package/nextras/secured-links)
+
+
 **SecuredLinksTrait** creates secured signal links.
 **PHP 5.4+ ONLY**
 
