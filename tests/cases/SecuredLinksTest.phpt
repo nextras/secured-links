@@ -61,9 +61,11 @@ $httpResponse = new Response();
 $router = new SimpleRouter();
 $request = new Request('Test', HttpRequest::GET, array());
 
-$session = new Session($httpRequest, $httpResponse);
-$section = $session->getSection('Nextras.Application.UI.SecuredLinksPresenterTrait');
-$section->token = 'abcd';
+$sessionSection = Mockery::mock('alias:Nette\Http\SessionSection');
+$sessionSection->token = 'abcd';
+
+$session = Mockery::mock('Nette\Http\Session');
+$session->shouldReceive('getSection')->with('Nextras.Application.UI.SecuredLinksPresenterTrait')->andReturn($sessionSection);
 
 $presenter = new TestPresenter();
 $presenter->autoCanonicalize = FALSE;
@@ -80,3 +82,5 @@ Assert::same( '/index.php?sections[0]=a&sections[1]=c&action=default&do=list&pre
 
 Assert::same( '/index.php?action=default&do=mycontrol-pay&presenter=Test&mycontrol-_sec=573011fa', $presenter['mycontrol']->link('pay') );
 Assert::same( '/index.php?mycontrol-amount=200&action=default&do=mycontrol-pay&presenter=Test&mycontrol-_sec=573011fa', $presenter['mycontrol']->link('pay', [200]) );
+
+Mockery::close();
