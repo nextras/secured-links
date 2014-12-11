@@ -119,7 +119,7 @@ trait SecuredLinksPresenterTrait
 	{
 		$session = $this->getSession('Nextras.Application.UI.SecuredLinksPresenterTrait');
 		if (!isset($session->token)) {
-			$session->token = Nette\Utils\Strings::random();
+			$session->token = Nette\Utils\Random::generate();
 		}
 
 		$params = Nette\Utils\Arrays::flatten($params);
