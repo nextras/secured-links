@@ -6,7 +6,6 @@ use Nette\Application\UI\Control;
 use Nette\Application\UI\Presenter;
 use Nette\Http\Request as HttpRequest;
 use Nette\Http\Response;
-use Nette\Http\Session;
 use Nette\Http\UrlScript;
 use Nextras\Application\UI\SecuredLinksControlTrait;
 use Nextras\Application\UI\SecuredLinksPresenterTrait;
