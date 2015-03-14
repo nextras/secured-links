@@ -29,7 +29,7 @@ trait SecuredLinksPresenterTrait
 	public function createSecuredLink(PresenterComponent $component, $link, $destination)
 	{
 		/** @var $lastRequest Nette\Application\Request */
-		$lastRequest = $this->lastCreatedRequest;
+		$lastRequest = $this->getLastCreatedRequest();
 
 		do {
 			if ($lastRequest === NULL) {
