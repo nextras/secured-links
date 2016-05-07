@@ -9,7 +9,7 @@
 namespace Nextras\Application\UI;
 
 use Nette;
-use Nette\Application\UI\PresenterComponent;
+use Nette\Application\UI\Component;
 
 
 trait SecuredLinksPresenterTrait
@@ -18,13 +18,13 @@ trait SecuredLinksPresenterTrait
 
 
 	/**
-	 * @param  PresenterComponent $component
-	 * @param  string $link created URL
-	 * @param  string $destination
+	 * @param  Component $component
+	 * @param  string    $link created URL
+	 * @param  string    $destination
 	 * @return string
 	 * @throws Nette\Application\UI\InvalidLinkException
 	 */
-	public function createSecuredLink(PresenterComponent $component, $link, $destination)
+	public function createSecuredLink(Component $component, $link, $destination)
 	{
 		/** @var $lastRequest Nette\Application\Request */
 		$lastRequest = $this->getLastCreatedRequest();
@@ -63,8 +63,8 @@ trait SecuredLinksPresenterTrait
 				throw new Nette\Application\UI\InvalidLinkException('Signal must be non-empty string.');
 			}
 
-			// only PresenterComponent
-			if (!$component instanceof PresenterComponent) {
+			// only Component
+			if (!$component instanceof Component) {
 				break;
 			}
 
