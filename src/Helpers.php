@@ -33,6 +33,11 @@ class Helpers
 
 		$params = Nette\Utils\Arrays::flatten($params);
 		$params = implode('|', array_keys($params)) . '|' . implode('|', array_values($params));
-		return substr(md5($controlName . $method . $params . $sessionSection->token . $session->getId()), 0, 8);
+
+		$data = $controlName . $method . $params . $session->getId();
+		$hash = hash_hmac('sha1', $data, $sessionSection->token, TRUE);
+		$token = strtr(substr(base64_encode($hash), 0, 8), '+/', '-_');
+
+		return $token;
 	}
 }

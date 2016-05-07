@@ -73,20 +73,20 @@ $presenter->injectPrimary(NULL, NULL, $router, $httpRequest, $httpResponse, $ses
 $presenter->run($request);
 
 
-Assert::same( '/index.php?action=default&do=pay&presenter=Test&_sec=15b97390', $presenter->link('pay!') );
-Assert::same( '/index.php?amount=200&action=default&do=pay&presenter=Test&_sec=15b97390', $presenter->link('pay!', [200]) );
-Assert::same( '/index.php?amount=100&action=default&do=pay2&presenter=Test&_sec=1292dd35', $presenter->link('pay2!', [100]) );
-Assert::same( '/index.php?amount=200&action=default&do=pay2&presenter=Test&_sec=6c9cc123', $presenter->link('pay2!', [200]) );
-Assert::same( '/index.php?sections[0]=a&sections[1]=b&action=default&do=list&presenter=Test&_sec=52c37d1f', urldecode($presenter->link('list!', [['a', 'b']])) );
-Assert::same( '/index.php?sections[0]=a&sections[1]=c&action=default&do=list&presenter=Test&_sec=a0f08fca', urldecode($presenter->link('list!', [['a', 'c']])) );
+Assert::same( '/index.php?action=default&do=pay&presenter=Test&_sec=7VNmMotk', $presenter->link('pay!') );
+Assert::same( '/index.php?amount=200&action=default&do=pay&presenter=Test&_sec=7VNmMotk', $presenter->link('pay!', [200]) );
+Assert::same( '/index.php?amount=100&action=default&do=pay2&presenter=Test&_sec=JtQFHCP3', $presenter->link('pay2!', [100]) );
+Assert::same( '/index.php?amount=200&action=default&do=pay2&presenter=Test&_sec=S2PM9nnh', $presenter->link('pay2!', [200]) );
+Assert::same( '/index.php?sections[0]=a&sections[1]=b&action=default&do=list&presenter=Test&_sec=btNfK0zF', urldecode($presenter->link('list!', [['a', 'b']])) );
+Assert::same( '/index.php?sections[0]=a&sections[1]=c&action=default&do=list&presenter=Test&_sec=2oGtxq6E', urldecode($presenter->link('list!', [['a', 'c']])) );
 
-Assert::same( '/index.php?action=default&do=mycontrol-pay&presenter=Test&mycontrol-_sec=3370fd04', $presenter['mycontrol']->link('pay') );
-Assert::same( '/index.php?mycontrol-amount=200&action=default&do=mycontrol-pay&presenter=Test&mycontrol-_sec=3370fd04', $presenter['mycontrol']->link('pay', [200]) );
+Assert::same( '/index.php?action=default&do=mycontrol-pay&presenter=Test&mycontrol-_sec=_eyaqc4b', $presenter['mycontrol']->link('pay') );
+Assert::same( '/index.php?mycontrol-amount=200&action=default&do=mycontrol-pay&presenter=Test&mycontrol-_sec=_eyaqc4b', $presenter['mycontrol']->link('pay', [200]) );
 
 
 $session->shouldReceive('getId')->times(2)->andReturn('session_id_2');
 
-Assert::same( '/index.php?sections[0]=a&sections[1]=b&action=default&do=list&presenter=Test&_sec=ea0c9a62', urldecode($presenter->link('list!', [['a', 'b']])) );
-Assert::same( '/index.php?sections[0]=a&sections[1]=c&action=default&do=list&presenter=Test&_sec=a4ddd9f8', urldecode($presenter->link('list!', [['a', 'c']])) );
+Assert::same( '/index.php?sections[0]=a&sections[1]=b&action=default&do=list&presenter=Test&_sec=Y3v1C1cr', urldecode($presenter->link('list!', [['a', 'b']])) );
+Assert::same( '/index.php?sections[0]=a&sections[1]=c&action=default&do=list&presenter=Test&_sec=kfY-zsLy', urldecode($presenter->link('list!', [['a', 'c']])) );
 
 Mockery::close();
