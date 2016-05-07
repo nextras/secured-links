@@ -1,11 +1,9 @@
 <?php
 
 /**
- * This file is part of the Nextras community extensions of Nette Framework
- *
+ * This file is part of the Nextras Secured Links library.
  * @license    MIT
- * @link       https://github.com/nextras
- * @author     Jan Skrasek
+ * @link       https://github.com/nextras/secured-links
  */
 
 namespace Nextras\Application\UI;
