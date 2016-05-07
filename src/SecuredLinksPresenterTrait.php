@@ -112,16 +112,7 @@ trait SecuredLinksPresenterTrait
 	 */
 	public function getCsrfToken($control, $method, $params)
 	{
-		$session = $this->getSession('Nextras.Application.UI.SecuredLinksPresenterTrait');
-		if (!isset($session->token)) {
-			$session->token = function_exists('random_bytes')
-				? random_bytes(16)
-				: Nette\Utils\Random::generate(16, "\x00-\xFF");
-		}
-
-		$params = Nette\Utils\Arrays::flatten($params);
-		$params = implode('|', array_keys($params)) . '|' . implode('|', array_values($params));
-		return substr(md5($control . $method . $params . $session->token . $this->getSession()->getId()), 0, 8);
+		return Helpers::getCsrfToken($this->getSession(), $control, $method, $params);
 	}
 
 }
