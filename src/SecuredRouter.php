@@ -17,6 +17,9 @@ use Nette\Http\Session;
 
 class SecuredRouter implements IRouter
 {
+	/** signed flag, marks requests which has been signed */
+	const SIGNED = 'signed';
+
 	/** length of secret token stored in session */
 	const SECURITY_TOKEN_LENGTH = 16;
 
@@ -57,8 +60,8 @@ class SecuredRouter implements IRouter
 	public function match(Nette\Http\IRequest $httpRequest)
 	{
 		$appRequest = $this->inner->match($httpRequest);
-		if ($appRequest !== NULL && !$this->isSignatureOk($appRequest)) {
-			return NULL;
+		if ($appRequest !== NULL && $this->isSignatureOk($appRequest)) {
+			$appRequest->setFlag(self::SIGNED);
 		}
 
 		return $appRequest;

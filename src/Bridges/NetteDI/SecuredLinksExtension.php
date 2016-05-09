@@ -2,11 +2,12 @@
 
 /**
  * This file is part of the Nextras Secured Links library.
+ *
  * @license    MIT
  * @link       https://github.com/nextras/secured-links
  */
 
-namespace Nextras\SecuredLinks;
+namespace Nextras\SecuredLinks\Bridges\NetteDI;
 
 use Generator;
 use Nette;
@@ -15,16 +16,22 @@ use Nette\Application\UI\Presenter;
 use Nette\DI\PhpReflection;
 use Nette\Neon\Neon;
 use Nette\Utils\Strings;
+use Nextras\SecuredLinks\Bridges\PhpParser\ReturnTypeResolver;
+use Nextras\SecuredLinks\RedirectChecker;
+use Nextras\SecuredLinks\SecuredRouterFactory;
+use PhpParser\Node;
 use ReflectionClass;
 use ReflectionMethod;
 
 
 class SecuredLinksExtension extends Nette\DI\CompilerExtension
 {
+
 	/** @var array */
 	public $defaults = [
 		'annotation' => 'secured', // can be NULL to disable
 		'destinations' => [],
+		'strictMode' => TRUE,
 	];
 
 
@@ -52,6 +59,12 @@ class SecuredLinksExtension extends Nette\DI\CompilerExtension
 			->setClass(IRouter::class)
 			->setFactory("@{$this->name}.routerFactory::create", ["@$innerRouter"])
 			->setAutowired(TRUE);
+
+		$builder->addDefinition($this->prefix('redirectChecker'))
+			->setClass(RedirectChecker::class);
+
+		$builder->getDefinition($builder->getByType(Nette\Application\Application::class))
+			->addSetup('?->onResponse[] = [?, ?]', ['@self', '@Nextras\SecuredLinks\RedirectChecker', 'checkResponse']);
 	}
 
 
@@ -88,17 +101,19 @@ class SecuredLinksExtension extends Nette\DI\CompilerExtension
 	{
 		$config = $this->validateConfig($this->defaults);
 
+		foreach ($config['destinations'] as $presenterClass => $destinations) {
+			yield $presenterClass => $destinations;
+		}
+
 		if ($config['annotation']) {
 			$presenters = $this->getContainerBuilder()->findByType(Presenter::class);
 			foreach ($presenters as $presenterDef) {
 				$presenterClass = $presenterDef->getClass();
-				$presenterRef = new \ReflectionClass($presenterClass);
-				yield $presenterClass => $this->findSecuredMethods($presenterRef);
+				if (!isset($config['destinations'][$presenterClass])) {
+					$presenterRef = new \ReflectionClass($presenterClass);
+					yield $presenterClass => $this->findSecuredMethods($presenterRef);
+				}
 			}
-		}
-
-		foreach ($config['destinations'] as $presenterClass => $destinations) {
-			yield $presenterClass => $destinations;
 		}
 	}
 
@@ -135,13 +150,20 @@ class SecuredLinksExtension extends Nette\DI\CompilerExtension
 				yield $destination => $methodRef;
 
 			} elseif (Strings::startsWith($methodName, 'createComponent')) {
-				$returnType = PhpReflection::getReturnType($methodRef);
+				$returnType = $this->getMethodReturnType($methodRef);
 				if ($returnType !== NULL) {
 					$returnTypeRef = new ReflectionClass($returnType);
 					$componentName = Strings::firstLower(Strings::after($methodName, 'createComponent'));
 					foreach ($this->findTargetMethods($returnTypeRef) as $innerDestination => $innerRef) {
 						yield "$componentName-$innerDestination" => $innerRef;
 					}
+
+				} elseif ($this->config['strictMode']) {
+					$className = $methodRef->getDeclaringClass()->getName();
+					throw new \LogicException(
+						"Unable to deduce return type for method $className::$methodName(); " .
+						"add @return annotation, install nikic/php-parser or disable strictMode in config"
+					);
 				}
 			}
 		}
@@ -167,6 +189,21 @@ class SecuredLinksExtension extends Nette\DI\CompilerExtension
 
 		} else {
 			return FALSE;
+		}
+	}
+
+
+	/**
+	 * @param  ReflectionMethod $methodRef
+	 * @return NULL|string
+	 */
+	private function getMethodReturnType(ReflectionMethod $methodRef)
+	{
+		$returnType = PhpReflection::getReturnType($methodRef);
+		if ($returnType !== NULL || !interface_exists(\PhpParser\Node::class)) {
+			return $returnType;
+		} else {
+			return ReturnTypeResolver::getReturnType($methodRef);
 		}
 	}
 }

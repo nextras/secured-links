@@ -16,7 +16,7 @@ use Nette\Application\Routers\Route;
 use Nette\Bridges\ApplicationDI\ApplicationExtension;
 use Nette\Bridges\HttpDI\HttpExtension;
 use Nette\Bridges\HttpDI\SessionExtension;
-use Nextras\SecuredLinks\SecuredLinksExtension;
+use Nextras\SecuredLinks\Bridges\NetteDI\SecuredLinksExtension;
 use Nextras\SecuredLinks\SecuredRouter;
 use Tester;
 use Tester\Assert;
@@ -96,6 +96,7 @@ class SecuredLinksExtensionTest extends Tester\TestCase
 		$dic = new \SecuredLinksExtensionContainer();
 		$dic->removeService('nette.http.sessions.session');
 		$dic->addService('nette.http.sessions.session', $session);
+
 		return $dic;
 	}
 }
