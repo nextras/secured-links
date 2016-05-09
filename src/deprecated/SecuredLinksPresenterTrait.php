@@ -1,11 +1,9 @@
 <?php
 
 /**
- * This file is part of the Nextras community extensions of Nette Framework
- *
+ * This file is part of the Nextras Secured Links library.
  * @license    MIT
- * @link       https://github.com/nextras
- * @author     Jan Skrasek
+ * @link       https://github.com/nextras/secured-links
  */
 
 namespace Nextras\Application\UI;
@@ -14,17 +12,16 @@ use Nette;
 use Nette\Application\UI\PresenterComponent;
 
 
+/**
+ * @deprecated
+ */
 trait SecuredLinksPresenterTrait
 {
 	use SecuredLinksControlTrait;
 
 
 	/**
-	 * @param  PresenterComponent $component
-	 * @param  string $link created URL
-	 * @param  string $destination
-	 * @return string
-	 * @throws Nette\Application\UI\InvalidLinkException
+	 * @deprecated
 	 */
 	public function createSecuredLink(PresenterComponent $component, $link, $destination)
 	{
@@ -106,11 +103,7 @@ trait SecuredLinksPresenterTrait
 
 
 	/**
-	 * Returns unique token for method and params
-	 * @param  string $control
-	 * @param  string $method
-	 * @param  array $params
-	 * @return string
+	 * @deprecated
 	 */
 	public function getCsrfToken($control, $method, $params)
 	{
@@ -123,5 +116,4 @@ trait SecuredLinksPresenterTrait
 		$params = implode('|', array_keys($params)) . '|' . implode('|', array_values($params));
 		return substr(md5($control . $method . $params . $session->token . $this->getSession()->getId()), 0, 8);
 	}
-
 }
