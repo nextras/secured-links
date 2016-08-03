@@ -1,4 +1,4 @@
-## Nextras\SecuredLinks
+## Nextras SecuredLinks
 
 [![Build Status](https://travis-ci.org/nextras/secured-links.svg?branch=master)](https://travis-ci.org/nextras/secured-links)
 [![Downloads this Month](https://img.shields.io/packagist/dm/nextras/secured-links.svg?style=flat)](https://packagist.org/packages/nextras/secured-links)
@@ -19,7 +19,8 @@ $ composer require nextras/secured-links
 ## Usage of SecuredLinksTrait
 
 ```php
-abstract class BasePrenseter extends Nette\Application\UI\Presenter
+<?php
+abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
 	use Nextras\Application\UI\SecuredLinksPresenterTrait;
 }
