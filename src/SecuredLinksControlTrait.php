@@ -58,7 +58,7 @@ trait SecuredLinksControlTrait
 				}
 
 				if (!isset($this->params['_sec']) || $this->params['_sec'] !== $this->getPresenter()->getCsrfToken(get_class($this), $method, $params)) {
-					throw new Nette\Application\UI\BadSignalException("Invalid security token for signal '$signal' in class {$this->reflection->name}.");
+					throw new Nette\Application\UI\BadSignalException("Invalid security token for signal '$signal' in class {$this->getReflection()->name}.");
 				}
 			}
 		}
