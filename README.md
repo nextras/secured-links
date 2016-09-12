@@ -6,7 +6,6 @@
 
 
 **SecuredLinksTrait** creates secured signal links.
-**PHP 5.4+ ONLY**
 
 ## Installation
 
