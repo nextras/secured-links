@@ -4,9 +4,6 @@
 [![Downloads this Month](https://img.shields.io/packagist/dm/nextras/secured-links.svg?style=flat)](https://packagist.org/packages/nextras/secured-links)
 [![Stable version](http://img.shields.io/packagist/v/nextras/secured-links.svg?style=flat)](https://packagist.org/packages/nextras/secured-links)
 
-
-**SecuredLinksTrait** creates secured signal links.
-
 ## Installation
 
 The best way to install is using [Composer](http://getcomposer.org/):
