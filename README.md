@@ -1,104 +1,25 @@
-## Nextras SecuredLinks
+Nextras Secured Links
+=====================
 
 [![Build Status](https://travis-ci.org/nextras/secured-links.svg?branch=master)](https://travis-ci.org/nextras/secured-links)
 [![Downloads this Month](https://img.shields.io/packagist/dm/nextras/secured-links.svg?style=flat)](https://packagist.org/packages/nextras/secured-links)
-[![Stable version](http://img.shields.io/packagist/v/nextras/secured-links.svg?style=flat)](https://packagist.org/packages/nextras/secured-links)
+[![Stable Version](https://poser.pugx.org/nextras/secured-links/v/stable)](https://packagist.org/packages/nextras/secured-links)
 
-## Installation
+Easy to use secured-links with powerfull API.
 
-The best way to install is using [Composer](http://getcomposer.org/):
+### Installation
 
-```sh
+Use composer:
+
+```bash
 $ composer require nextras/secured-links
 ```
 
-## What it does and how
+### Docs & sources
 
-This package provides an option to secure Nette signals against [CSRF attack](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)).
-
-Given you marked some signal handler as "secured":
-
-- When you generate a link to that signal, then an **unique token** is added to its URL.
-- When you invoke the signal URL, then the token from the URL is checked. If it doesn't match, the request results in a 403 error.
-- When the secured signal gets processed, it checks that you redirected user to some other URL.
-
-It does so by decorating control's `link` and `signalReceived` methods. So you can use `$control->link('signal!')` or Latte macros `{link signal!}` and `n:href="signal!"` like normal, with no special effort. It just works.
-
-The generated token is unique for the user, for the full signal name (incl. component path) and for values of all of its required parameters. You will get different token for `{link delete! 1}` than `{link delete! 2}`. The idea behind this is that if the URL leaks, the scope of its usage is as limited as possible.
-
-## Usage of SecuredLinks traits
-
-To make a signal "secured", three conditions have to be met:
-
-- The presenter uses `Nextras\Application\UI\SecuredLinksPresenterTrait` trait.
-- The control uses `Nextras\Application\UI\SecuredLinksControlTrait` trait.
-- The signal handler has the `@secured` annotation.
-
-### Edit base classes
-
-Add these traits to your `BasePresenter` and `BaseControl`, if you have them in your application (most apps do):
-
-```php
-<?php
-abstract class BasePresenter extends Nette\Application\UI\Presenter
-{
-	use Nextras\Application\UI\SecuredLinksPresenterTrait;
-}
+- [Documentation](https://nextras.org/secured-links/docs)
 
 
-abstract class BaseControl extends Nette\Application\UI\Control
-{
-	use Nextras\Application\UI\SecuredLinksControlTrait;
-}
-```
+### License
 
-### Secure signals
-
-Now you can use the `@secured` annotation in all its descendants:
-
-```php
-class MyPresenter extends BasePresenter
-{
-	/**
-	 * @secured
-	 */
-	public function handleDelete($id)
-	{
-	}
-}
-
-
-class MyControl extends BaseControl
-{
-	/**
-	 * @secured
-	 */
-	public function handleDelete($id)
-	{
-	}
-}
-```
-
-### How to secure dynamic links
-
-Sometimes you need to modify links parameters on the client-side. Mostly it's a result of a bad design decision from the past, however the need is there and you have to deal with it.
-
-The easiest solution is to make these dynamic parameters optional:
-
-```php
-class LegacyControl extends BaseControl
-{
-	/**
-	 * @secured
-	 */
-	public function handleDelete($id = NULL)
-	{
-		if ($id === NULL) {
-			throw new InvalidArgumentException;
-		}
-		// ...
-	}
-}
-```
-
-Optional parameters don't vary the token, so with this approach you get the same token for `{link delete! 1}`, `{link delete! 2}` or `{link delete! '%placeholder%'}`. It's not perfect, but it's still way safer than not securing these signals at all.
+MIT. See full [license](LICENSE).
