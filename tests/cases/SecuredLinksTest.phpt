@@ -51,8 +51,7 @@ class TestPresenter extends Presenter
 }
 
 
-$url = new UrlScript('http://localhost/index.php');
-$url->setScriptPath('/index.php');
+$url = new UrlScript('http://localhost/index.php', '/index.php');
 
 $httpRequest = new HttpRequest($url);
 $httpResponse = new Response();
