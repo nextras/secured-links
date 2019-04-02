@@ -17,7 +17,7 @@ trait SecuredLinksControlTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function link($destination, $args = array())
+	public function link(string $destination, $args = []): string
 	{
 		if (!is_array($args)) {
 			$args = func_get_args();
@@ -36,7 +36,7 @@ trait SecuredLinksControlTrait
 	 * @throws Nette\Application\UI\BadSignalException if there is no handler method or the security token does not match
 	 * @throws \LogicException if there is no redirect in a secured signal
 	 */
-	public function signalReceived($signal)
+	public function signalReceived(string $signal): void
 	{
 		$method = $this->formatSignalMethod($signal);
 		$secured = FALSE;
