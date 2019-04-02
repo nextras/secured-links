@@ -13,7 +13,7 @@
 	],
 	"require": {
 		"php": "^7.1",
-		"nette/application": "^3.0-RC3",
+		"nette/application": "^3.0",
 		"nette/utils": "^3.0",
 		"nette/reflection": "^2.4"
 	},

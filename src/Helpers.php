@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * This file is part of the Nextras Secured Links library.
@@ -16,14 +16,8 @@ class Helpers
 {
 	/**
 	 * Returns unique token for method and params
-	 *
-	 * @param  Session $session
-	 * @param  string  $controlClassName
-	 * @param  string  $method
-	 * @param  array   $params
-	 * @return string
 	 */
-	public static function getCsrfToken(Session $session, $controlClassName, $method, array $params)
+	public static function getCsrfToken(Session $session, string $controlClassName, string $method, array $params): string
 	{
 		$sessionSection = $session->getSection('Nextras.Application.UI.SecuredLinksPresenterTrait');
 		if (!isset($sessionSection->token)) {
