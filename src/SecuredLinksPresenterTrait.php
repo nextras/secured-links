@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * This file is part of the Nextras Secured Links library.
@@ -18,13 +18,9 @@ trait SecuredLinksPresenterTrait
 
 
 	/**
-	 * @param  Component $component
-	 * @param  string    $link created URL
-	 * @param  string    $destination
-	 * @return string
 	 * @throws Nette\Application\UI\InvalidLinkException
 	 */
-	public function createSecuredLink(Component $component, $link, $destination)
+	public function createSecuredLink(Component $component, string $link, string $destination): string
 	{
 		/** @var $lastRequest Nette\Application\Request */
 		$lastRequest = $this->getLastCreatedRequest();
@@ -105,12 +101,8 @@ trait SecuredLinksPresenterTrait
 
 	/**
 	 * Returns unique token for method and params
-	 * @param  string $control
-	 * @param  string $method
-	 * @param  array $params
-	 * @return string
 	 */
-	public function getCsrfToken($control, $method, $params)
+	public function getCsrfToken(string $control, string $method, array $params): string
 	{
 		return Helpers::getCsrfToken($this->getSession(), $control, $method, $params);
 	}
