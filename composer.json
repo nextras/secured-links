@@ -6,9 +6,8 @@
 	"license": ["MIT"],
 	"authors": [
 		{
-			"name": "Jan Skrasek",
-			"email": "hrach.cz@gmail.com",
-			"homepage": "http://jan.skrasek.com"
+			"name": "Nextras Project",
+			"homepage": "https://github.com/nextras/secured-links/graphs/contributors"
 		}
 	],
 	"require": {
@@ -23,13 +22,10 @@
 	},
 	"extra": {
 		"branch-alias": {
-			"dev-master": "1.4-dev"
+			"dev-master": "1.5-dev"
 		}
 	},
 	"autoload": {
 		"psr-4": { "Nextras\\Application\\UI\\": "src/" }
-	},
-	"replace": {
-		"nextras/application": "self.version"
 	}
 }
