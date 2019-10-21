@@ -35,4 +35,13 @@ class Helpers
 
 		return $token;
 	}
+
+	/**
+	 * Invalidates token stored in session
+	 */
+	public static function removeCsrfToken(Session $session)
+	{
+		$sessionSection = $session->getSection('Nextras.Application.UI.SecuredLinksPresenterTrait');
+		$sessionSection->token = null;
+	}
 }

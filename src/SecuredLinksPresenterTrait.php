@@ -107,4 +107,12 @@ trait SecuredLinksPresenterTrait
 		return Helpers::getCsrfToken($this->getSession(), $control, $method, $params);
 	}
 
+	/**
+	 * Invalidates token stored in session
+	 */
+	public function removeCsrfToken()
+	{
+		Helpers::removeCsrfToken($this->getSession());
+	}
+
 }
