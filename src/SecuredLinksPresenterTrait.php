@@ -100,6 +100,15 @@ trait SecuredLinksPresenterTrait
 
 
 	/**
+	 * Sets token's expiration
+	 */
+	public function setCsrfTokenExpiration($time)
+	{
+		Helpers::setCsrfTokenExpiration($this->getSession(), $time);
+	}
+
+
+	/**
 	 * Returns unique token for method and params
 	 */
 	public function getCsrfToken(string $control, string $method, array $params): string
