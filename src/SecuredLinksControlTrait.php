@@ -52,8 +52,8 @@ trait SecuredLinksControlTrait
 						}
 						if (isset($this->params[$param->name])) {
 							$params[$param->name] = $this->params[$param->name];
-							list($type, $isClass) = Nette\Application\UI\ComponentReflection::getParameterType($param);
-							Nette\Application\UI\ComponentReflection::convertType($params[$param->name], $type, $isClass);
+							$type = Nette\Application\UI\ComponentReflection::getParameterType($param);
+							Nette\Application\UI\ComponentReflection::convertType($params[$param->name], $type);
 						}
 					}
 				}
