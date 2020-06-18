@@ -41,8 +41,8 @@ trait SecuredLinksControlTrait
 		$secured = FALSE;
 
 		if (method_exists($this, $method)) {
-			$reflection = new Nette\Reflection\Method($this, $method);
-			$secured = $reflection->hasAnnotation('secured');
+			$reflection = new \ReflectionMethod($this, $method);
+			$secured = Nette\Application\UI\ComponentReflection::parseAnnotation($reflection, 'secured') !== NULL;
 			if ($secured) {
 				$params = array($this->getUniqueId());
 				if ($this->params) {
