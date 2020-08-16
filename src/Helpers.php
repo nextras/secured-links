@@ -15,6 +15,16 @@ use Nette\Http\Session;
 class Helpers
 {
 	/**
+	 * Sets token's expiration
+	 */
+	public static function setCsrfTokenExpiration(Session $session, $time)
+	{
+		$sessionSection = $session->getSection('Nextras.Application.UI.SecuredLinksPresenterTrait');
+		$sessionSection->setExpiration($time);
+	}
+
+
+	/**
 	 * Returns unique token for method and params
 	 */
 	public static function getCsrfToken(Session $session, string $controlClassName, string $method, array $params): string
