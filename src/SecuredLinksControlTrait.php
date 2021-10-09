@@ -17,12 +17,11 @@ trait SecuredLinksControlTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function link(string $destination, $args = []): string
+	public function link(string $destination, ...$args): string
 	{
-		if (!is_array($args)) {
-			$args = func_get_args();
-			array_shift($args);
-		}
+		$args = count($args) === 1 && is_array($args[0] ?? null)
+			? $args[0]
+			: $args;
 
 		$link = parent::link($destination, $args);
 		return $this->getPresenter()->createSecuredLink($this, $link, $destination);

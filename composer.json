@@ -11,8 +11,8 @@
 		}
 	],
 	"require": {
-		"php": "^7.1 || ^8.0",
-		"nette/application": "^3.0.3",
+		"php": "^7.2 || ^8.0",
+		"nette/application": "^3.1.4",
 		"nette/utils": "^3.0"
 	},
 	"require-dev": {
