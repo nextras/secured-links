@@ -5,6 +5,7 @@
 
 use Nette\Application\Request;
 use Nette\Application\Routers\SimpleRouter;
+use Nette\Application\UI\BadSignalException;
 use Nette\Application\UI\Presenter;
 use Nette\Http\Request as HttpRequest;
 use Nette\Http\Response;
@@ -63,5 +64,14 @@ $presenter->run(new Request('Test', 'GET', [
 	'value' => '0',
 	'_sec' => 'JqCasYHU',
 ]));
+
+Assert::exception(function () use ($presenter) {
+	$presenter->run(new Request('Test', 'GET', [
+		'action' => 'default',
+		'do' => 'pay',
+		'value' => '0',
+		//'_sec' => 'JqCasYHU',
+	]));
+}, BadSignalException::class, "Invalid security token for signal 'pay' in class TestPresenter.");
 
 Mockery::close();

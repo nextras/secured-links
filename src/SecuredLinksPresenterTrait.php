@@ -68,7 +68,7 @@ trait SecuredLinksPresenterTrait
 			$method = $component->formatSignalMethod($signal);
 			$signalReflection = $reflection->getMethod($method);
 
-			if (!$signalReflection->hasAnnotation('secured')) {
+			if (!$signalReflection->hasAnnotation('secured') && count($signalReflection->getAttributes(Secured::class)) === 0) {
 				break;
 			}
 
