@@ -33,6 +33,10 @@ class TestPresenter extends Presenter
 		$this->redirect('this');
 	}
 
+	public function handleCancel(bool $value)
+	{
+		$this->redirect('this');
+	}
 }
 
 
@@ -57,6 +61,7 @@ $presenter->injectPrimary(NULL, NULL, $router, $httpRequest, $httpResponse, $ses
 $presenter->run($request);
 
 Assert::same('/index.php?value=0&action=default&do=pay&presenter=Test&_sec=JqCasYHU', $presenter->link('pay!', [FALSE]));
+Assert::same('/index.php?value=0&action=default&do=cancel&presenter=Test', $presenter->link('cancel!', [FALSE]));
 
 $presenter->run(new Request('Test', 'GET', [
 	'action' => 'default',
