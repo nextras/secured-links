@@ -52,7 +52,7 @@ trait SecuredLinksControlTrait
 						}
 						if (isset($this->params[$param->name])) {
 							$params[$param->name] = $this->params[$param->name];
-							$type = Nette\Application\UI\ComponentReflection::getParameterType($param);
+							$type = Nette\Application\UI\ComponentReflection::getType($param);
 							Nette\Application\UI\ComponentReflection::convertType($params[$param->name], $type);
 						}
 					}
