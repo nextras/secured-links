@@ -68,7 +68,9 @@ trait SecuredLinksPresenterTrait
 			$method = $component->formatSignalMethod($signal);
 			$signalReflection = $reflection->getMethod($method);
 
-			if (!($signalReflection->hasAnnotation('secured') || (method_exists($signalReflection, 'getAttributes') && count($signalReflection->getAttributes(Secured::class)) > 0))) {
+			$secured = Nette\Application\UI\ComponentReflection::parseAnnotation($signalReflection, 'secured') !== NULL
+				|| (method_exists($signalReflection, 'getAttributes') && count($signalReflection->getAttributes(Secured::class)) > 0);
+			if (!$secured) {
 				break;
 			}
 
